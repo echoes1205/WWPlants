@@ -27,6 +27,8 @@ async function authenticateUser(username, password) {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     return true;
+  }else{
+        throw new Error('Contraseña incorrecta');
   }
 
   return false;

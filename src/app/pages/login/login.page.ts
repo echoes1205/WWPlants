@@ -18,10 +18,13 @@ export class LoginPage {
     password: '',
   };
 
+  error: string | null = null; // Variable para almacenar el mensaje de error
+
   constructor(private router: Router, private http: HttpClient) {}
 
   authenticate() {
-    console.log('');
+    this.error = null; // Reiniciar el mensaje de error antes de hacer la solicitud
+
     const data = {
       username: this.usuario.username,
       password: this.usuario.password,
@@ -36,15 +39,13 @@ export class LoginPage {
           this.router.navigate(['/plantas']);
         } else {
           console.log('Usuario y/o contraseña incorrecta');
-          // Aquí puedes mostrar un mensaje de error al usuario.
+          this.error = 'Usuario y/o contraseña incorrecta'; // Establecer el mensaje de error en caso de error de autenticación
         }
       },
       (error) => {
         console.error('Error en la solicitud:', error);
-        // Aquí puedes mostrar un mensaje de error al usuario.
+        this.error = 'Error en la solicitud, por favor inténtalo de nuevo.'; // Establecer el mensaje de error en caso de error de la solicitud
       }
     );
   }
-  
 }
-
